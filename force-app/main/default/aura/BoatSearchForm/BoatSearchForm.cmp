@@ -1,0 +1,19 @@
+<aura:component controller="BoatSearchResults" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <aura:attribute name="boatTypes" type="BoatType__c"/>
+    <aura:attribute name="renderNew" type="Boolean" default="false"/>
+    <aura:attribute name="selectedType" type="string" default=""/>
+    <aura:registerEvent name="formsubmit" type="c:FormSubmit"/>
+    <lightning:layout horizontalAlign="center" verticalAlign="end">
+        <lightning:select aura:id="boatTypes" name="selectedType" onchange="{!c.handleChange}" >
+            <option value="">All Types</option>
+            <aura:iteration items="{!v.boatTypes}" var="boat">
+                <option text="{!boat.Name}" value="{!boat.Id}"/>
+            </aura:iteration>
+        </lightning:select>
+        <lightning:button class="slds-button" variant="brand" label="Search" onclick="{!c.onFormSubmit}"></lightning:button>
+        <aura:if isTrue="{!v.renderNew}">
+        	<lightning:button class="slds-button" variant="neutral" label="New" onclick="{!c.createNewBoat}"></lightning:button>
+    	</aura:if>
+    </lightning:layout>  
+</aura:component>
